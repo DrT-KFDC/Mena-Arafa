@@ -3,7 +3,7 @@
 <head>
 <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
-<title>صيدلية بعثة الحج الكويتية - كشف الصيادلة</title>
+<title>صيدلية بعثة الحج الكويتية - كشف ادوية منى وعرفه فقط</title>
 <style>
 :root {
   --primary:#0f4c81;
@@ -182,10 +182,16 @@ button:hover { background:var(--primary-dark); }
 }
 .loc-label {
   color:var(--muted);
+  font-size:12px;
+  font-weight:700;
+  text-transform:uppercase;
 }
 .loc-value {
   font-weight:900;
   color:#111827;
+  font-size:22px;
+  line-height:1.2;
+  padding:4px 0;
 }
 .card-meta {
   display:flex;
@@ -329,13 +335,13 @@ function renderCards() {
       <div class="locations">
         <div class="loc-box arafat">
           <div class="loc-title">🟣 عرفه</div>
-          <div class="loc-line"><span class="loc-label">Quantity</span><span class="loc-value">${escapeHtml(item.arafat_qty || "-")}</span></div>
-          <div class="loc-line"><span class="loc-label">Location</span><span class="loc-value">${escapeHtml(item.arafat_location || "-")}</span></div>
+          <div class="loc-line"><span class="loc-label">📦 Quantity</span><span class="loc-value">${escapeHtml(item.arafat_qty || "-")}</span></div>
+          <div class="loc-line"><span class="loc-label">📍 Location</span><span class="loc-value">${escapeHtml(item.arafat_location || "-")}</span></div>
         </div>
         <div class="loc-box mina">
           <div class="loc-title">🟢 منى</div>
-          <div class="loc-line"><span class="loc-label">Quantity</span><span class="loc-value">${escapeHtml(item.mina_qty || "-")}</span></div>
-          <div class="loc-line"><span class="loc-label">Location</span><span class="loc-value">${escapeHtml(item.mina_location || "-")}</span></div>
+          <div class="loc-line"><span class="loc-label">📦 Quantity</span><span class="loc-value">${escapeHtml(item.mina_qty || "-")}</span></div>
+          <div class="loc-line"><span class="loc-label">📍 Location</span><span class="loc-value">${escapeHtml(item.mina_location || "-")}</span></div>
         </div>
       </div>
 
