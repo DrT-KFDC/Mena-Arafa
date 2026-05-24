@@ -3,7 +3,7 @@
 <head>
 <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
-<title>صيدلية بعثة الحج الكويتية - كشف منى وعرفه فقط</title>
+<title>صيدلية بعثة الحج الكويتية - كشف الصيادلة</title>
 <style>
 :root {
   --primary:#0f4c81;
@@ -92,37 +92,6 @@ button {
   padding:0 18px;
 }
 button:hover { background:var(--primary-dark); }
-.summary-boxes {
-  display:grid;
-  grid-template-columns:repeat(3, 1fr);
-  gap:10px;
-  margin-bottom:12px;
-}
-.summary-card {
-  background:white;
-  border:1px solid var(--border);
-  border-radius:18px;
-  padding:12px;
-  text-align:center;
-  box-shadow:0 8px 20px rgba(15,76,129,.08);
-}
-.summary-card strong {
-  display:block;
-  font-size:20px;
-  color:var(--primary-dark);
-}
-.summary-card span {
-  font-size:12px;
-  color:var(--muted);
-}
-.summary-card.arafat {
-  border-color:#c4b5fd;
-  background:linear-gradient(135deg,#faf5ff,#f3e8ff);
-}
-.summary-card.mina {
-  border-color:#86efac;
-  background:linear-gradient(135deg,#f0fdf4,#dcfce7);
-}
 .stats {
   display:flex;
   gap:8px;
@@ -278,6 +247,25 @@ button:hover { background:var(--primary-dark); }
     <h1>صيدلية بعثة الحج الكويتية<br><span style="font-size:0.9em;font-weight:700;">كشف الصيادلة فقط</span></h1>
     <p>كشف لكميات ومواقع الأدوية لمنى وعرفه</p>
   </header>
+
+  <section class="toolbar">
+    
+    </div>
+    <div class="controls">
+      <input id="searchInput" type="search" placeholder="Search trade, generic, location, quantity, or type...">
+      <select id="typeFilter"><option value="">All Types</option></select>
+      <select id="placeFilter">
+        <option value="">All Locations</option>
+        <option value="arafat">عرفه</option>
+        <option value="mina">منى</option>
+      </select>
+      <button type="button" onclick="clearFilters()">Clear</button>
+    </div>
+    <div class="stats">
+      <span class="badge">Total: <strong id="totalCount">0</strong></span>
+      <span class="badge">Showing: <strong id="shownCount">0</strong></span>
+    </div>
+  </section>
 
   <section id="cardsGrid" class="cards-grid"></section>
   <div id="emptyState" class="empty">No matching results found</div>
