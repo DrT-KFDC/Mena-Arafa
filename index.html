@@ -1,0 +1,403 @@
+<!DOCTYPE html>
+<html lang="ar" dir="rtl">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>صيدلية بعثة الحج الكويتية - كشف الصيادلة</title>
+<style>
+:root {
+  --primary:#0f4c81;
+  --primary-dark:#082f52;
+  --accent:#19a7ce;
+  --bg:#f3f7fb;
+  --card:#ffffff;
+  --text:#172033;
+  --muted:#6b7280;
+  --border:#e5e7eb;
+  --arafat:#7c3aed;
+  --mina:#0f766e;
+}
+* { box-sizing:border-box; }
+body {
+  margin:0;
+  font-family: Arial, Tahoma, sans-serif;
+  background:linear-gradient(135deg,#eaf4ff,#f8fbff);
+  color:var(--text);
+  min-height:100vh;
+}
+.page {
+  width:100%;
+  max-width:1180px;
+  margin:0 auto;
+  padding:14px;
+}
+.header {
+  background:linear-gradient(135deg,var(--primary),var(--primary-dark));
+  color:white;
+  border-radius:28px;
+  padding:22px 16px;
+  text-align:center;
+  box-shadow:0 18px 42px rgba(15,76,129,.22);
+  margin-bottom:12px;
+}
+.header h1 {
+  margin:0;
+  font-size:24px;
+  line-height:1.7;
+  font-weight:900;
+}
+.header p {
+  margin:8px 0 0;
+  opacity:.92;
+  font-size:14px;
+}
+.toolbar {
+  position:sticky;
+  top:0;
+  z-index:50;
+  background:rgba(243,247,251,.96);
+  backdrop-filter:blur(14px);
+  border:1px solid rgba(229,231,235,.95);
+  border-radius:22px;
+  box-shadow:0 12px 30px rgba(15,76,129,.12);
+  padding:12px;
+  margin-bottom:14px;
+}
+.controls {
+  display:grid;
+  grid-template-columns:2fr 1fr 1fr auto;
+  gap:10px;
+  align-items:center;
+}
+input, select, button {
+  width:100%;
+  min-height:50px;
+  border:1px solid var(--border);
+  border-radius:16px;
+  padding:0 14px;
+  font-size:16px;
+  outline:none;
+  background:white;
+}
+input:focus, select:focus {
+  border-color:var(--accent);
+  box-shadow:0 0 0 4px rgba(25,167,206,.12);
+}
+button {
+  background:var(--primary);
+  color:white;
+  border:none;
+  font-weight:800;
+  cursor:pointer;
+  padding:0 18px;
+}
+button:hover { background:var(--primary-dark); }
+.summary-boxes {
+  display:grid;
+  grid-template-columns:repeat(3, 1fr);
+  gap:10px;
+  margin-bottom:12px;
+}
+.summary-card {
+  background:white;
+  border:1px solid var(--border);
+  border-radius:18px;
+  padding:12px;
+  text-align:center;
+  box-shadow:0 8px 20px rgba(15,76,129,.08);
+}
+.summary-card strong {
+  display:block;
+  font-size:20px;
+  color:var(--primary-dark);
+}
+.summary-card span {
+  font-size:12px;
+  color:var(--muted);
+}
+.summary-card.arafat {
+  border-color:#c4b5fd;
+  background:linear-gradient(135deg,#faf5ff,#f3e8ff);
+}
+.summary-card.mina {
+  border-color:#86efac;
+  background:linear-gradient(135deg,#f0fdf4,#dcfce7);
+}
+.stats {
+  display:flex;
+  gap:8px;
+  flex-wrap:wrap;
+  margin-top:10px;
+  color:var(--muted);
+  font-size:13px;
+}
+.badge {
+  background:white;
+  border:1px solid var(--border);
+  padding:8px 12px;
+  border-radius:999px;
+}
+.cards-grid {
+  display:grid;
+  grid-template-columns:repeat(auto-fill, minmax(295px, 1fr));
+  gap:14px;
+}
+.med-card {
+  background:var(--card);
+  border:1px solid var(--border);
+  border-radius:24px;
+  padding:15px;
+  box-shadow:0 12px 28px rgba(15,76,129,.10);
+  transition:.18s ease;
+  direction:ltr;
+  text-align:left;
+}
+.med-card:hover {
+  transform:translateY(-2px);
+  box-shadow:0 16px 34px rgba(15,76,129,.16);
+}
+.med-title {
+  font-size:16.5px;
+  font-weight:900;
+  color:var(--primary-dark);
+  margin-bottom:8px;
+  line-height:1.45;
+}
+.med-generic {
+  font-size:14px;
+  color:#374151;
+  line-height:1.5;
+  margin-bottom:12px;
+}
+.locations {
+  display:grid;
+  grid-template-columns:1fr 1fr;
+  gap:8px;
+  margin-top:10px;
+}
+.loc-box {
+  border-radius:18px;
+  padding:10px;
+  border:1px solid var(--border);
+  background:#f8fafc;
+}
+.loc-title {
+  direction:rtl;
+  text-align:right;
+  font-weight:900;
+  font-size:13px;
+  margin-bottom:7px;
+}
+.loc-box.arafat {
+  background:linear-gradient(135deg,#f3e8ff,#ede9fe);
+  border:2px solid #c4b5fd;
+}
+.loc-box.arafat .loc-title {
+  color:var(--arafat);
+  font-size:15px;
+}
+.loc-box.mina {
+  background:linear-gradient(135deg,#dcfce7,#ecfdf5);
+  border:2px solid #86efac;
+}
+.loc-box.mina .loc-title {
+  color:var(--mina);
+  font-size:15px;
+}
+.loc-line {
+  display:flex;
+  justify-content:space-between;
+  gap:8px;
+  font-size:13px;
+  padding:3px 0;
+}
+.loc-label {
+  color:var(--muted);
+}
+.loc-value {
+  font-weight:900;
+  color:#111827;
+}
+.card-meta {
+  display:flex;
+  gap:8px;
+  flex-wrap:wrap;
+  margin-top:10px;
+}
+.pill {
+  display:inline-flex;
+  align-items:center;
+  gap:6px;
+  background:#eef7ff;
+  color:#0b355a;
+  border:1px solid #d6ecff;
+  padding:7px 10px;
+  border-radius:999px;
+  font-size:12.5px;
+  font-weight:800;
+}
+.pill.type {
+  background:#ecfdf5;
+  color:#065f46;
+  border-color:#ccfbf1;
+}
+.empty {
+  display:none;
+  text-align:center;
+  color:var(--muted);
+  background:white;
+  border:1px dashed var(--border);
+  border-radius:22px;
+  padding:30px;
+  margin-top:10px;
+}
+.footer-note {
+  text-align:center;
+  margin-top:35px;
+  font-size:10.5px;
+  opacity:.30;
+  color:#111827;
+}
+@media (max-width:850px) {
+  .page { padding:10px; }
+  .header { border-radius:22px; padding:20px 12px; }
+  .header h1 { font-size:19px; }
+  .summary-boxes { grid-template-columns:1fr; }
+  .controls { grid-template-columns:1fr; }
+  .toolbar { border-radius:18px; padding:10px; }
+  .cards-grid { grid-template-columns:1fr; gap:10px; }
+  .med-card { border-radius:20px; padding:14px; }
+  .locations { grid-template-columns:1fr; }
+}
+</style>
+</head>
+<body>
+<main class="page">
+  <header class="header">
+    <div style="font-size:52px;margin-bottom:8px;">🇰🇼</div>
+    <h1>صيدلية بعثة الحج الكويتية<br><span style="font-size:0.9em;font-weight:700;">كشف الصيادلة فقط</span></h1>
+    <p>كشف لكميات ومواقع الأدوية لمنى وعرفه</p>
+  </header>
+
+  <section class="toolbar">
+    <div class="summary-boxes">
+      <div class="summary-card"><strong id="totalTop">0</strong><span>إجمالي الأصناف</span></div>
+      <div class="summary-card arafat"><strong>🟣 عرفه</strong><span>كمية + موقع</span></div>
+      <div class="summary-card mina"><strong>🟢 منى</strong><span>كمية + موقع</span></div>
+    </div>
+    <div class="controls">
+      <input id="searchInput" type="search" placeholder="Search trade, generic, location, quantity, or type...">
+      <select id="typeFilter"><option value="">All Types</option></select>
+      <select id="placeFilter">
+        <option value="">All Locations</option>
+        <option value="arafat">عرفه</option>
+        <option value="mina">منى</option>
+      </select>
+      <button type="button" onclick="clearFilters()">Clear</button>
+    </div>
+    <div class="stats">
+      <span class="badge">Total: <strong id="totalCount">0</strong></span>
+      <span class="badge">Showing: <strong id="shownCount">0</strong></span>
+    </div>
+  </section>
+
+  <section id="cardsGrid" class="cards-grid"></section>
+  <div id="emptyState" class="empty">No matching results found</div>
+  <div class="footer-note">Prepared by Ph. Talal Alenezi</div>
+</main>
+
+<script>
+const records = [{"sn": "1", "trade": "PANADREX 500MG (KSP)            1200 TAB", "generic": "Paracetamol", "arafat_qty": "1200", "arafat_location": "3B", "mina_qty": "2400", "mina_location": "3B", "type": "Tablets"}, {"sn": "2", "trade": "SUPRAZOLE 200MG    (KSP)        1000 TAB", "generic": "Metronidazole", "arafat_qty": "1000", "arafat_location": "3B", "mina_qty": "1000", "mina_location": "3B", "type": "Tablets"}, {"sn": "3", "trade": "OMACID (NPI)                    1000 TAB", "generic": "Antacid", "arafat_qty": "1000", "arafat_location": "3B", "mina_qty": "2000", "mina_location": "3B", "type": "Tablets"}, {"sn": "4", "trade": "CLAVOMOX 1G (KSP)                 14 TAB", "generic": "Amoxicillin/Clavulanic Acid", "arafat_qty": "700", "arafat_location": "3B3", "mina_qty": "1400", "mina_location": "5B4", "type": "Tablets"}, {"sn": "5", "trade": "RAPIDUS 50MG (TABUK)             500 TAB", "generic": "Diclofenac Potassium", "arafat_qty": "500", "arafat_location": "3B", "mina_qty": "500", "mina_location": "2B1", "type": "Tablets"}, {"sn": "6", "trade": "GLYTRIN SUBLINGUAL SPRAY 400MCG/200DOSES", "generic": "Glyceryl Trinitrate Spray", "arafat_qty": "400", "arafat_location": "2B10", "mina_qty": "400", "mina_location": "2B7", "type": "Preperations"}, {"sn": "7", "trade": "KLACID XL  500MG (ABBOTT)         14 TAB", "generic": "Clarithromycin Extended-Release", "arafat_qty": "350", "arafat_location": "3B1", "mina_qty": "700", "mina_location": "5B2", "type": "Tablets"}, {"sn": "8", "trade": "SCOPINAL 10MG (JULPHAR)          320 TAB", "generic": "Hyoscine", "arafat_qty": "320", "arafat_location": "2B6", "mina_qty": "320", "mina_location": "2B10", "type": "Tablets"}, {"sn": "9", "trade": "MINISEC 20MG (KSP)                28 CAP", "generic": "Omeprazole", "arafat_qty": "280", "arafat_location": "2B6", "mina_qty": "560", "mina_location": "2B4", "type": "Tablets"}, {"sn": "10", "trade": "IRIS 5MG (UNITED)", "generic": "Desloratadine", "arafat_qty": "210", "arafat_location": "2B7", "mina_qty": "420", "mina_location": "2B9", "type": "Tablets"}, {"sn": "11", "trade": "GASTRO-EASE 42MG (US PHARMA)     100 TAB", "generic": "Simethicone", "arafat_qty": "200", "arafat_location": "2B6", "mina_qty": "300", "mina_location": "2B4", "type": "Tablets"}, {"sn": "12", "trade": "EZIPECT 8MG (KSP)               3200 TAB", "generic": "Bromhexine", "arafat_qty": "200", "arafat_location": "2B10", "mina_qty": "400", "mina_location": "2B7", "type": "Tablets"}, {"sn": "13", "trade": "OLFEN 50MG (ACINO)               200 TAB", "generic": "Diclofenac Sodium", "arafat_qty": "200", "arafat_location": "2B8", "mina_qty": "400", "mina_location": "2B1", "type": "Tablets"}, {"sn": "14", "trade": "GUPISONE 5MG (JULPHAR)           200 TAB", "generic": "Prednisolone", "arafat_qty": "200", "arafat_location": "2B6", "mina_qty": "400", "mina_location": "2B3", "type": "Tablets"}, {"sn": "15", "trade": "MUSCADOL (JULPHAR)              1000 TAB", "generic": "Paracetamol + Orphendarine", "arafat_qty": "200", "arafat_location": "2B5", "mina_qty": "400", "mina_location": "2B1", "type": "Tablets"}, {"sn": "16", "trade": "PROTON 40MG (SPIMACO)            84 TAB", "generic": "Pantoprazole", "arafat_qty": "168", "arafat_location": "2B6", "mina_qty": "336", "mina_location": "2B2", "type": "Tablets"}, {"sn": "17", "trade": "GLYCERYL TRINITRATE 0.5MG (TAJ PH)40 TAB", "generic": "Glyceryl trinitrate", "arafat_qty": "160", "arafat_location": "2B10", "mina_qty": "160", "mina_location": "2B3", "type": "Tablets"}, {"sn": "18", "trade": "PRIMOLUT-NOR 10MG (BAYER)        300 TAB", "generic": "Norethisterone", "arafat_qty": "150", "arafat_location": "2B10", "mina_qty": "300", "mina_location": "2B6", "type": "Tablets"}, {"sn": "19", "trade": "DAFLON 500MG (SERVIER)          3600 TAB", "generic": "Diosmin + Hesperidin", "arafat_qty": "150", "arafat_location": "2B5", "mina_qty": "150", "mina_location": "2B1", "type": "Tablets"}, {"sn": "20", "trade": "TINVISTA 500MG (CADILA)          150 TAB", "generic": "Tinidazole", "arafat_qty": "150", "arafat_location": "2B7", "mina_qty": "150", "mina_location": "2B5", "type": "Tablets"}, {"sn": "21", "trade": "FLUDREX (KSP)                   1200 TAB", "generic": "Paracetamol + Pseudoephedrine", "arafat_qty": "120", "arafat_location": "3B2", "mina_qty": "500", "mina_location": "3B5", "type": "Tablets"}, {"sn": "22", "trade": "PREMOSAN 10MG (JULPHAR)           20 TAB", "generic": "Metoclopramide", "arafat_qty": "120", "arafat_location": "2B8", "mina_qty": "120", "mina_location": "2B3", "type": "Tablets"}, {"sn": "23", "trade": "KEPPRA  1000MG (GSK)             100 TAB", "generic": "Levetiracetam", "arafat_qty": "100", "arafat_location": "2B7", "mina_qty": "100", "mina_location": "2B9", "type": "Tablets"}, {"sn": "24", "trade": "KEPPRA 500MG  (GSK)              100 TAB", "generic": "Levetiracetam", "arafat_qty": "100", "arafat_location": "2B6", "mina_qty": "100", "mina_location": "2B6", "type": "Tablets"}, {"sn": "25", "trade": "KAPRON 500MG (AMOUN)              20 TAB", "generic": "Tranexamic Acid", "arafat_qty": "100", "arafat_location": "2B7", "mina_qty": "200", "mina_location": "2B7", "type": "Tablets"}, {"sn": "26", "trade": "CIFLOX 500MG (KSP)              1000 TAB", "generic": "Ciprofloxacin", "arafat_qty": "100", "arafat_location": "2B10", "mina_qty": "200", "mina_location": "3B3", "type": "Tablets"}, {"sn": "27", "trade": "ISOSORBIDE DINITRATE 10MG (EPICO)600 TAB", "generic": "Isosorbide Dinitrate", "arafat_qty": "100", "arafat_location": "2B10", "mina_qty": "120", "mina_location": "2B7", "type": "Tablets"}, {"sn": "28", "trade": "FENAMIC 250MG (KSP)             1200 CAP", "generic": "Mefenamic Acid", "arafat_qty": "100", "arafat_location": "2B10", "mina_qty": "100", "mina_location": "2B2", "type": "Tablets"}, {"sn": "29", "trade": "FUSIX 40MG (K.S.P)              2800 TAB", "generic": "Furosemide", "arafat_qty": "100", "arafat_location": "2B4", "mina_qty": "100", "mina_location": "2B6", "type": "Tablets"}, {"sn": "30", "trade": "GLUCOPHAGE 850MG (MERCK)         100 TAB", "generic": "Metformin", "arafat_qty": "100", "arafat_location": "2B8", "mina_qty": "100", "mina_location": "2B6", "type": "Tablets"}, {"sn": "31", "trade": "COUFATEX 5MG (APOTEX)            100 TAB", "generic": "Warfarin", "arafat_qty": "100", "arafat_location": "2B10", "mina_qty": "100", "mina_location": "2B9", "type": "Tablets"}, {"sn": "32", "trade": "DALACIN C 150MG (PFIZER)         100 CAP", "generic": "Clindamycin", "arafat_qty": "100", "arafat_location": "2B5", "mina_qty": "100", "mina_location": "2B7", "type": "Tablets"}, {"sn": "33", "trade": "EPANUTIN 100MG (PFIZER)          100 CAP", "generic": "Phenytoin", "arafat_qty": "100", "arafat_location": "2B8", "mina_qty": "100", "mina_location": "2B9", "type": "Tablets"}, {"sn": "34", "trade": "EUTHYROX 100MCG (MERCK)          100 TAB", "generic": "Levothyroxine (Synthetic Thyroid Hormone)", "arafat_qty": "100", "arafat_location": "2B8", "mina_qty": "100", "mina_location": "2B3", "type": "Tablets"}, {"sn": "35", "trade": "EUTHYROX 25MCG (MERCK)           100 TAB", "generic": "Levothyroxine (Synthetic Thyroid Hormone)", "arafat_qty": "100", "arafat_location": "2B7", "mina_qty": "100", "mina_location": "2B3", "type": "Tablets"}, {"sn": "36", "trade": "EUTHYROX 50MCG (MERCK)            100TAB", "generic": "Levothyroxine (Synthetic Thyroid Hormone)", "arafat_qty": "100", "arafat_location": "2B5", "mina_qty": "100", "mina_location": "2B3", "type": "Tablets"}, {"sn": "37", "trade": "TRANDATE 200MG (ASPEN)           100 TAB", "generic": "Labetalol", "arafat_qty": "100", "arafat_location": "2B5", "mina_qty": "100", "mina_location": "2B3", "type": "Tablets"}, {"sn": "38", "trade": "WARFARIN 2MG (APOTEX)            100 TAB", "generic": "Warfarin", "arafat_qty": "100", "arafat_location": "2B10", "mina_qty": "100", "mina_location": "2B9", "type": "Tablets"}, {"sn": "39", "trade": "PULMICORT 0.50MG/ML               20 AMP", "generic": "Budesonide", "arafat_qty": "100", "arafat_location": "3B3", "mina_qty": "100", "mina_location": "3B4", "type": "Preperations"}, {"sn": "40", "trade": "CETRALON 10MG                      10TAB", "generic": "Cetirizine", "arafat_qty": "100", "arafat_location": "2B3", "mina_qty": "200", "mina_location": "2B10", "type": "Tablets"}, {"sn": "41", "trade": "ZESTRIL 10MG (ATNAHS)             98 TAB", "generic": "Lisinopril", "arafat_qty": "98", "arafat_location": "2B7", "mina_qty": "98", "mina_location": "2B9", "type": "Tablets"}, {"sn": "42", "trade": "ZESTRIL 5MG (ATNAHS)              98 TAB", "generic": "Lisinopril", "arafat_qty": "98", "arafat_location": "2B9", "mina_qty": "98", "mina_location": "2B9", "type": "Tablets"}, {"sn": "43", "trade": "ZESTORETIC 20/12.5MG (ATNAHS)     98 TAB", "generic": "Lisinopril + Hydrochlorothiazide", "arafat_qty": "98", "arafat_location": "2B4", "mina_qty": "98", "mina_location": "2B7", "type": "Tablets"}, {"sn": "44", "trade": "DEXAMETHASONE 0.5MG (ALGORITHM)  300 TAB", "generic": "Dexamethasone", "arafat_qty": "90", "arafat_location": "2B10", "mina_qty": "90", "mina_location": "3B1", "type": "Tablets"}, {"sn": "45", "trade": "SELEXIB 200MG (KSP)               30 CAP", "generic": "Celecoxib", "arafat_qty": "90", "arafat_location": "2B8", "mina_qty": "180", "mina_location": "2B1", "type": "Tablets"}, {"sn": "46", "trade": "GAVISCON (RECKITT)               144 TAB", "generic": "Aluminum Hydroxide + Magnesium Carbonate", "arafat_qty": "72", "arafat_location": "2B7", "mina_qty": "144", "mina_location": "Window", "type": "Tablets"}, {"sn": "47", "trade": "ASOKA MR 60MG (CENTAUR)           60 TAB", "generic": "Gliclazide", "arafat_qty": "60", "arafat_location": "2B8", "mina_qty": "60", "mina_location": "2B10", "type": "Tablets"}, {"sn": "48", "trade": "XARELTO 10MG                      60 TAB", "generic": "Rivaroxaban", "arafat_qty": "60", "arafat_location": "2B9", "mina_qty": "60", "mina_location": "2B8", "type": "Tablets"}, {"sn": "49", "trade": "ASPIRIN PROTECT 100MG (BAYER)     30 TAB", "generic": "Acetylsalicylic acid", "arafat_qty": "60", "arafat_location": "2B9", "mina_qty": "90", "mina_location": "2B5", "type": "Tablets"}, {"sn": "50", "trade": "CONCOR 10MG (MERCK)               30 TAB", "generic": "Bisoprolol", "arafat_qty": "60", "arafat_location": "2B9", "mina_qty": "60", "mina_location": "2B5", "type": "Tablets"}, {"sn": "51", "trade": "CONCOR 5MG (MERCK)                30 TAB", "generic": "Bisoprolol", "arafat_qty": "60", "arafat_location": "2B9", "mina_qty": "60", "mina_location": "2B5", "type": "Tablets"}, {"sn": "52", "trade": "ELIQUIS 2.5MG (BMS-PFIZER)        60 TAB", "generic": "Apixaban", "arafat_qty": "60", "arafat_location": "2B9", "mina_qty": "60", "mina_location": "2B10", "type": "Tablets"}, {"sn": "53", "trade": "ONDAVELL 8MG (NOVELL)             12 TAB", "generic": "Ondansetron", "arafat_qty": "60", "arafat_location": "2B5", "mina_qty": "120", "mina_location": "2B3", "type": "Tablets"}, {"sn": "54", "trade": "PROCORALAN 5MG (SERVIER)          56 TAB", "generic": "Ivabradine", "arafat_qty": "56", "arafat_location": "2B8", "mina_qty": "56", "mina_location": "2B7", "type": "Tablets"}, {"sn": "55", "trade": "PROCORALAN 7.5MG (SERVIER)        56 TAB", "generic": "Ivabradine", "arafat_qty": "56", "arafat_location": "2B10", "mina_qty": "56", "mina_location": "2B7", "type": "Tablets"}, {"sn": "56", "trade": "JANUMET XR 50/1000 MG (MSD)       56 TAB", "generic": "Sitagliptin/Metformin", "arafat_qty": "56", "arafat_location": "3B2", "mina_qty": "56", "mina_location": "2B6", "type": "Tablets"}, {"sn": "57", "trade": "CINNARON 25MG (REMEDICA)         250 TAB", "generic": "Cinnarizine", "arafat_qty": "50", "arafat_location": "2B7", "mina_qty": "50", "mina_location": "2B7", "type": "Tablets"}, {"sn": "58", "trade": "LIORESAL 25MG (NOVARTIS)          50 TAB", "generic": "Baclofen", "arafat_qty": "50", "arafat_location": "2B7", "mina_qty": "50", "mina_location": "2B10", "type": "Tablets"}, {"sn": "59", "trade": "ACETAB 50MG (K.S.P)             1000 TAB", "generic": "Captopril", "arafat_qty": "50", "arafat_location": "2B10", "mina_qty": "50", "mina_location": "2B9", "type": "Tablets"}, {"sn": "60", "trade": "BETATEN 100MG (NPI)              840 TAB", "generic": "Atenolol", "arafat_qty": "50", "arafat_location": "2B8", "mina_qty": "50", "mina_location": "2B6", "type": "Tablets"}, {"sn": "61", "trade": "ITOLON 50MG (SAVVY)              100 TAB", "generic": "Itopride", "arafat_qty": "50", "arafat_location": "2B10", "mina_qty": "50", "mina_location": "2B4", "type": "Tablets"}, {"sn": "62", "trade": "CEFRIN 250MG (JULPHAR)           100 CAP", "generic": "Cefuroxime", "arafat_qty": "50", "arafat_location": "2B5", "mina_qty": "50", "mina_location": "2B3", "type": "Tablets"}, {"sn": "63", "trade": "INDERAL 40MG (ATNAHS)             50 TAB", "generic": "Propranolol", "arafat_qty": "50", "arafat_location": "2B8", "mina_qty": "50", "mina_location": "2B3", "type": "Tablets"}, {"sn": "64", "trade": "ROWATINEX (ROWA WAGNER)           50 CAP", "generic": "Essential Oils", "arafat_qty": "50", "arafat_location": "2B7", "mina_qty": "50", "mina_location": "2B7", "type": "Tablets"}, {"sn": "65", "trade": "TEGRETOL CR 200MG (NOVARTIS)      50 TAB", "generic": "Carbamazepine CR", "arafat_qty": "50", "arafat_location": "2B9", "mina_qty": "50", "mina_location": "2B7", "type": "Tablets"}, {"sn": "66", "trade": "WARFARIN 1MG (APOTEX)            100 TAB", "generic": "Warfarin", "arafat_qty": "50", "arafat_location": "2B1", "mina_qty": "50", "mina_location": "2B7", "type": "Tablets"}, {"sn": "67", "trade": "TRIAMCINOLONE 0.1%+NYST.+NEO.CREAM 10TU (Panderm)", "generic": "Triamcinolone, Nystatin, Neomycin", "arafat_qty": "50", "arafat_location": "3B3", "mina_qty": "100", "mina_location": "5B1", "type": "Preperations"}, {"sn": "68", "trade": "Loperamide (Imodium)", "generic": "Loperamide", "arafat_qty": "50", "arafat_location": "2B9", "mina_qty": "100", "mina_location": "3B1", "type": "Tablets"}, {"sn": "69", "trade": "GUPISONE 20MG (JULPHAR)           20 TAB", "generic": "Prednisolone", "arafat_qty": "40", "arafat_location": "2B6", "mina_qty": "80", "mina_location": "2B3", "type": "Tablets"}, {"sn": "70", "trade": "REPARIL 20MG (MADAUS)             40 TAB", "generic": "Aescin", "arafat_qty": "40", "arafat_location": "2B6", "mina_qty": "120", "mina_location": "2B1", "type": "Tablets"}, {"sn": "71", "trade": "DEPAKINE 500MG (SANOFI)           40 TAB", "generic": "Valproic Acid", "arafat_qty": "40", "arafat_location": "2B3", "mina_qty": "40", "mina_location": "2B10", "type": "Tablets"}, {"sn": "72", "trade": "LAVISTINA 16MG (TABUK)            40 TAB", "generic": "Betahistine", "arafat_qty": "40", "arafat_location": "2B5", "mina_qty": "40", "mina_location": "2B5", "type": "Tablets"}, {"sn": "73", "trade": "WARIVIRON 400MG (WALTER RITTER) 35 TAB", "generic": "Acyclovir", "arafat_qty": "35", "arafat_location": "2B9", "mina_qty": "35", "mina_location": "2B10", "type": "Tablets"}, {"sn": "74", "trade": "COVERAM 10/10MG (SERVIER)         30 TAB", "generic": "Perindopril/Amlodipine", "arafat_qty": "30", "arafat_location": "2B8", "mina_qty": "30", "mina_location": "2B9", "type": "Tablets"}, {"sn": "75", "trade": "COVERAM 10/5MG (SERVIER)          30 TAB", "generic": "Perindopril/Amlodipine", "arafat_qty": "30", "arafat_location": "2B8", "mina_qty": "30", "mina_location": "2B9", "type": "Tablets"}, {"sn": "76", "trade": "JARDIANCE 25M   (BOEHRINGER)      30 TAB", "generic": "Empagliflozin", "arafat_qty": "30", "arafat_location": "2B7", "mina_qty": "30", "mina_location": "2B9", "type": "Tablets"}, {"sn": "77", "trade": "LIPANTHYL 145MG (ABBOTT)          30 TAB", "generic": "Fenofibrate", "arafat_qty": "30", "arafat_location": "2B7", "mina_qty": "30", "mina_location": "2B10", "type": "Tablets"}, {"sn": "78", "trade": "ONGLYZA 5MG (ASTRAZENCA)          30 TAB", "generic": "Saxagliptin", "arafat_qty": "30", "arafat_location": "2B7", "mina_qty": "30", "mina_location": "2B9", "type": "Tablets"}, {"sn": "79", "trade": "PRADAXA 110MG (BOEHRINGER)        30 CAP", "generic": "Dabigatran Etexilate", "arafat_qty": "30", "arafat_location": "2B9", "mina_qty": "30", "mina_location": "2B7", "type": "Tablets"}, {"sn": "80", "trade": "PRISTIQ 50MG (PFIZER)             30 TAB", "generic": "Desvenlafaxine", "arafat_qty": "30", "arafat_location": "2B7", "mina_qty": "30", "mina_location": "2B7", "type": "Tablets"}, {"sn": "81", "trade": "URILAX 5MG (TABUK)                30 TAB", "generic": "Solifenacin succinate", "arafat_qty": "30", "arafat_location": "2B8", "mina_qty": "30", "mina_location": "2B5", "type": "Tablets"}, {"sn": "82", "trade": "URITAB XL 10MG (TABUK)            30 TAB", "generic": "Alfuzosin", "arafat_qty": "30", "arafat_location": "2B10", "mina_qty": "30", "mina_location": "2B7", "type": "Tablets"}, {"sn": "83", "trade": "NORVASC 5MG (PFIZER)             30  CAP", "generic": "Amlodipine", "arafat_qty": "30", "arafat_location": "2B9", "mina_qty": "60", "mina_location": "2B4", "type": "Tablets"}, {"sn": "84", "trade": "ALDOMET 250MG (ALGORITHM)         30 TAB", "generic": "Methyldopa", "arafat_qty": "30", "arafat_location": "2B9", "mina_qty": "30", "mina_location": "2B7", "type": "Tablets"}, {"sn": "1", "trade": "CYMBATEX 30MG (EVAPHARMA)         30 CAP", "generic": "Duloxetine", "arafat_qty": "30", "arafat_location": "2B10", "mina_qty": "30", "mina_location": "2B7", "type": "Tablets"}, {"sn": "2", "trade": "LAMICTAL 50MG   (GSK)             30 TAB", "generic": "Lamotrigine", "arafat_qty": "30", "arafat_location": "2B7", "mina_qty": "30", "mina_location": "2B10", "type": "Tablets"}, {"sn": "3", "trade": "LIPITOR 10MG (PFIZER)            300 TAB", "generic": "Atorvastatin", "arafat_qty": "30", "arafat_location": "2B7", "mina_qty": "30", "mina_location": "2B5", "type": "Tablets"}, {"sn": "4", "trade": "LIPITOR 20MG (PFIZER)             30 TAB", "generic": "Atorvastatin", "arafat_qty": "30", "arafat_location": "3B2", "mina_qty": "30", "mina_location": "2B5", "type": "Tablets"}, {"sn": "5", "trade": "LIPITOR 40MG (PFIZER)            300 TAB", "generic": "Atorvastatin", "arafat_qty": "30", "arafat_location": "3B2", "mina_qty": "30", "mina_location": "2B5", "type": "Tablets"}, {"sn": "6", "trade": "SALIPAX (ACINO)                   30 CAP", "generic": "Venlafaxine", "arafat_qty": "30", "arafat_location": "2B9", "mina_qty": "30", "mina_location": "2B10", "type": "Tablets"}, {"sn": "7", "trade": "TRAJENTA (BOEHRINGER)             30 TAB", "generic": "Linagliptin", "arafat_qty": "30", "arafat_location": "3B2", "mina_qty": "30", "mina_location": "2B10", "type": "Tablets"}, {"sn": "8", "trade": "TRYPTIZOL 25MG (ALGORITHM)        30 TAB", "generic": "Amitriptyline", "arafat_qty": "30", "arafat_location": "2B7", "mina_qty": "30", "mina_location": "2B7", "type": "Tablets"}, {"sn": "9", "trade": "ACETAB 25MG (K.S.P)             2800 TAB", "generic": "Captopril", "arafat_qty": "30", "arafat_location": "2B9", "mina_qty": "30", "mina_location": "2B5", "type": "Tablets"}, {"sn": "10", "trade": "MELOREM 15MG (REMEDICA)", "generic": "Meloxicam", "arafat_qty": "30", "arafat_location": "2B7", "mina_qty": "30", "mina_location": "2B10", "type": "Tablets"}, {"sn": "11", "trade": "DOMPY 10MG (JAMJOOM)              30 TAB", "generic": "Domperidone", "arafat_qty": "30", "arafat_location": "2B5", "mina_qty": "30", "mina_location": "2B5", "type": "Tablets"}, {"sn": "12", "trade": "DUSPATALIN RTD 200MG (ABBOTT)     30 CAP", "generic": "Mebeverine", "arafat_qty": "30", "arafat_location": "2B6", "mina_qty": "30", "mina_location": "2B5", "type": "Tablets"}, {"sn": "13", "trade": "GLUCOPHAGE XR 500MG (MERCK)       30 TAB", "generic": "Metformin", "arafat_qty": "30", "arafat_location": "2B5", "mina_qty": "60", "mina_location": "2B6", "type": "Tablets"}, {"sn": "14", "trade": "MODURETIC 5/50MG (ALGORITHM)     300 TAB", "generic": "Amiloride + Hydrochlorothiazide", "arafat_qty": "30", "arafat_location": "2B5", "mina_qty": "60", "mina_location": "2B9", "type": "Tablets"}, {"sn": "15", "trade": "AMARYL 2MG (SANOFI)               30 TAB", "generic": "Glimepiride", "arafat_qty": "30", "arafat_location": "2B5", "mina_qty": "30", "mina_location": "2B5", "type": "Tablets"}, {"sn": "16", "trade": "COVERSYL 5MG (SERVIER)            30 TAB", "generic": "Perindopril", "arafat_qty": "30", "arafat_location": "2B3", "mina_qty": "30", "mina_location": "2B4", "type": "Tablets"}, {"sn": "17", "trade": "GLUCOPHAGE XR 750MG (MERCK)       30 TAB", "generic": "Metformin", "arafat_qty": "30", "arafat_location": "2B7", "mina_qty": "30", "mina_location": "2B6", "type": "Tablets"}, {"sn": "18", "trade": "INVOKANA 100MG (JANSSEN)          30 TAB", "generic": "Canagliflozin", "arafat_qty": "30", "arafat_location": "2B3", "mina_qty": "30", "mina_location": "2B6", "type": "Tablets"}, {"sn": "19", "trade": "INVOKANA 300MG (JANSSEN)          30 TAB", "generic": "Canagliflozin", "arafat_qty": "30", "arafat_location": "2B8", "mina_qty": "30", "mina_location": "2B3", "type": "Tablets"}, {"sn": "20", "trade": "JARDIANCE 10MG (BORHRINGER)  30 TAB", "generic": "Empagliflozin", "arafat_qty": "30", "arafat_location": "2B10", "mina_qty": "30", "mina_location": "2B9", "type": "Tablets"}, {"sn": "21", "trade": "LERCADIP 10MG (ALGORITHM)         30 TAB", "generic": "Lercanidipine", "arafat_qty": "30", "arafat_location": "2B9", "mina_qty": "30", "mina_location": "2B6", "type": "Tablets"}, {"sn": "22", "trade": "MIRTAZA 30MG (APOTEX)             30 TAB", "generic": "Mirtazapine", "arafat_qty": "30", "arafat_location": "2B5", "mina_qty": "30", "mina_location": "2B10", "type": "Tablets"}, {"sn": "23", "trade": "NATRILIX SR (SERVIER)             30 TAB", "generic": "Indapamide", "arafat_qty": "30", "arafat_location": "2B5", "mina_qty": "30", "mina_location": "2B3", "type": "Tablets"}, {"sn": "24", "trade": "UNIDIL  6.25MG (UNITED)           30 TAB", "generic": "Carvedilol", "arafat_qty": "30", "arafat_location": "2B9", "mina_qty": "30", "mina_location": "2B7", "type": "Tablets"}, {"sn": "25", "trade": "WELLBUTRIN XL 150MG (GSK)         30 TAB", "generic": "Bupropion", "arafat_qty": "30", "arafat_location": "2B5", "mina_qty": "30", "mina_location": "2B5", "type": "Tablets"}, {"sn": "26", "trade": "SALBUTAMOL INHALER 100MCG 200DOSE (Ventolin)", "generic": "Salbutamol", "arafat_qty": "30", "arafat_location": "3B2", "mina_qty": "50", "mina_location": "3B6", "type": "Preperations"}, {"sn": "27", "trade": "ZETRON 250MG (TABUK)               6 CAP", "generic": "Azithromycin", "arafat_qty": "30", "arafat_location": "2B3", "mina_qty": "30", "mina_location": "2B10", "type": "Tablets"}, {"sn": "28", "trade": "DIOVAN 160MG (NOVARTIS)           28 TAB", "generic": "Valsartan", "arafat_qty": "28", "arafat_location": "2B10", "mina_qty": "56", "mina_location": "2B4", "type": "Tablets"}, {"sn": "29", "trade": "SINGULAIR 10MG (MSD)              28 TAB", "generic": "Montelukast", "arafat_qty": "28", "arafat_location": "2B7", "mina_qty": "56", "mina_location": "2B7", "type": "Tablets"}, {"sn": "30", "trade": "EXFORGE HCT 10/160/12.5MG         28 TAB", "generic": "Amlodipine + Valsartan + Hydrochlorothiazide", "arafat_qty": "28", "arafat_location": "2B9", "mina_qty": "28", "mina_location": "2B5", "type": "Tablets"}, {"sn": "31", "trade": "EXFORGE HCT 5/160/12.5MG          28 TAB", "generic": "Amlodipine/Valsartan/Hydrochlorothiazide", "arafat_qty": "28", "arafat_location": "2B8", "mina_qty": "28", "mina_location": "2B5", "type": "Tablets"}, {"sn": "32", "trade": "GALVUS 50MG (NOVARTIS)            28 TAB", "generic": "Vildagliptin", "arafat_qty": "28", "arafat_location": "", "mina_qty": "28", "mina_location": "2B10", "type": "Tablets"}, {"sn": "33", "trade": "XARELTO 15MG (BAYER)              28 TAB", "generic": "Rivaroxaban", "arafat_qty": "28", "arafat_location": "2B6", "mina_qty": "28", "mina_location": "2B7", "type": "Tablets"}, {"sn": "34", "trade": "XARELTO 20MG (BAYER)              28 TAB", "generic": "Rivaroxaban", "arafat_qty": "28", "arafat_location": "2B6", "mina_qty": "28", "mina_location": "2B7", "type": "Tablets"}, {"sn": "35", "trade": "CRESTOR 10MG (ASTRAZENECA)        28 TAB", "generic": "Rosuvastatin", "arafat_qty": "28", "arafat_location": "2B9", "mina_qty": "56", "mina_location": "2B6", "type": "Tablets"}, {"sn": "36", "trade": "CRESTOR 20MG (ASTRAZENECA)        28 TAB", "generic": "Rosuvastatin", "arafat_qty": "28", "arafat_location": "2B9", "mina_qty": "56", "mina_location": "2B6", "type": "Tablets"}, {"sn": "37", "trade": "BLOPRESS 16MG (APM)               28 TAB", "generic": "Candesartan", "arafat_qty": "28", "arafat_location": "2B9", "mina_qty": "28", "mina_location": "2B9", "type": "Tablets"}, {"sn": "38", "trade": "BLOPRESS 8MG (HIKMA)              28 TAB", "generic": "Candesartan", "arafat_qty": "28", "arafat_location": "2B9", "mina_qty": "28", "mina_location": "2B9", "type": "Tablets"}, {"sn": "39", "trade": "CIPRALEX 10 MG (LUNDBECK)         28 TAB", "generic": "Escitalopram", "arafat_qty": "28", "arafat_location": "2B9", "mina_qty": "28", "mina_location": "2B5", "type": "Tablets"}, {"sn": "40", "trade": "EBIXA 10MG   (LUNDBECK)            28TAB", "generic": "Memantine", "arafat_qty": "28", "arafat_location": "2B9", "mina_qty": "28", "mina_location": "2B10", "type": "Tablets"}, {"sn": "41", "trade": "PROSCAR 5MG (MSD)                 28 TAB", "generic": "Finasteride", "arafat_qty": "28", "arafat_location": "2B7", "mina_qty": "28", "mina_location": "2B9", "type": "Tablets"}, {"sn": "42", "trade": "TENORMIN 50MG (ASTRAZENECA)       28 TAB", "generic": "Atenolol", "arafat_qty": "28", "arafat_location": "2B10", "mina_qty": "28", "mina_location": "2B9", "type": "Tablets"}, {"sn": "43", "trade": "ZOCOR 20MG (ORGANON)              28 TAB", "generic": "Simvastatin", "arafat_qty": "28", "arafat_location": "", "mina_qty": "28", "mina_location": "2B5", "type": "Tablets"}, {"sn": "44", "trade": "PLAVIX 75MG (SANOFI)              28 TAB", "generic": "Clopidogrel", "arafat_qty": "28", "arafat_location": "2B7", "mina_qty": "28", "mina_location": "2B1", "type": "Tablets"}, {"sn": "45", "trade": "NEXIUM 40MG (ASTRAZENECA)         14 TAB", "generic": "Esomeprazole", "arafat_qty": "28", "arafat_location": "2B6", "mina_qty": "56", "mina_location": "3B1", "type": "Tablets"}, {"sn": "46", "trade": "NEXIUM 20MG (ASTRAZENECA)         14 TAB", "generic": "Esomeprazole", "arafat_qty": "28", "arafat_location": "2B6", "mina_qty": "56", "mina_location": "2B4", "type": "Tablets"}, {"sn": "47", "trade": "DIOVAN 80MG (NOVARTIS)            28 TAB", "generic": "Valsartan", "arafat_qty": "28", "arafat_location": "2B3", "mina_qty": "56", "mina_location": "2B5", "type": "Tablets"}, {"sn": "48", "trade": "EZETROL 10MG (ORGANON)            28 TAB", "generic": "Ezetimibe", "arafat_qty": "28", "arafat_location": "2B5", "mina_qty": "56", "mina_location": "2B3", "type": "Tablets"}, {"sn": "49", "trade": "FORXIGA 10MG (ASTRAZENECA)        28 TAB", "generic": "Dapagliflozin", "arafat_qty": "28", "arafat_location": "2B5", "mina_qty": "56", "mina_location": "2B2", "type": "Tablets"}, {"sn": "50", "trade": "DETRUSITOL 2MG (PFIZER)           28 TAB", "generic": "Tolterodine", "arafat_qty": "28", "arafat_location": "2B9", "mina_qty": "28", "mina_location": "2B3", "type": "Tablets"}, {"sn": "51", "trade": "ISTIN 10MG (PFIZER)              280 TAB", "generic": "Amlodipine", "arafat_qty": "28", "arafat_location": "2B4", "mina_qty": "28", "mina_location": "2B7", "type": "Tablets"}, {"sn": "52", "trade": "MICARDIS 40MG (BOEHRINGER)        28 TAB", "generic": "Telmisartan", "arafat_qty": "28", "arafat_location": "2B3", "mina_qty": "28", "mina_location": "2B3", "type": "Tablets"}, {"sn": "53", "trade": "MICARDIS 80MG (BOEHRINGER)        28 TAB", "generic": "Telmisartan", "arafat_qty": "28", "arafat_location": "2B5", "mina_qty": "28", "mina_location": "2B3", "type": "Tablets"}, {"sn": "54", "trade": "MODEXA 60MG (TABUK)               28 CAP", "generic": "Duloxetine", "arafat_qty": "28", "arafat_location": "2B3", "mina_qty": "28", "mina_location": "2B9", "type": "Tablets"}, {"sn": "55", "trade": "TENORETIC (ASTRAZENECA)           28 TAB", "generic": "Atenolol + Chlorthalidone", "arafat_qty": "28", "arafat_location": "2B5", "mina_qty": "28", "mina_location": "2B9", "type": "Tablets"}, {"sn": "56", "trade": "TRITACE 10MG (SANOFI)             28 TAB", "generic": "Ramipril", "arafat_qty": "28", "arafat_location": "2B8", "mina_qty": "28", "mina_location": "2B6", "type": "Tablets"}, {"sn": "57", "trade": "TRITACE 2.5MG (SANOFI)            28 TAB", "generic": "Ramipril", "arafat_qty": "28", "arafat_location": "", "mina_qty": "28", "mina_location": "", "type": "Tablets"}, {"sn": "58", "trade": "TRITACE 5MG (SANOFI)              28 TAB", "generic": "Ramipril", "arafat_qty": "28", "arafat_location": "2B5", "mina_qty": "28", "mina_location": "2B6", "type": "Tablets"}, {"sn": "59", "trade": "HYGROTON 25MG                    100 TAB", "generic": "Chlorthalidone", "arafat_qty": "25", "arafat_location": "2B3", "mina_qty": "25", "mina_location": "3B1", "type": "Tablets"}, {"sn": "60", "trade": "BENZYDAMINE HCL ORAL RINSE  125ML 25 BOT", "generic": "BENZYDAMINE HCL", "arafat_qty": "25", "arafat_location": "", "mina_qty": "50", "mina_location": "5B", "type": "Preperations"}, {"sn": "61", "trade": "ISOPTIN SR (ABBOTT)               20 TAB", "generic": "Verapamil", "arafat_qty": "20", "arafat_location": "2B8", "mina_qty": "20", "mina_location": "2B5", "type": "Tablets"}, {"sn": "62", "trade": "ANTI-HEMORROID SUPP.              10 SUP", "generic": "Hemorrhoid Suppository", "arafat_qty": "20", "arafat_location": "2B6", "mina_qty": "50", "mina_location": "2B5", "type": "Preperations"}, {"sn": "63", "trade": "ALDACTONE 25MG (PFIZER)           20 TAB", "generic": "Spironolactone", "arafat_qty": "20", "arafat_location": "2B7", "mina_qty": "20", "mina_location": "2B9", "type": "Tablets"}, {"sn": "64", "trade": "UVAMIN RETARD 100MG (ACINO)      200 CAP", "generic": "Nitrofurantoin Retard", "arafat_qty": "20", "arafat_location": "2B5", "mina_qty": "40", "mina_location": "2B3", "type": "Tablets"}, {"sn": "65", "trade": "DICYNONE 500MG (OM PHARMA)        20 TAB", "generic": "Etamsylate", "arafat_qty": "20", "arafat_location": "2B5", "mina_qty": "20", "mina_location": "2B3", "type": "Tablets"}, {"sn": "66", "trade": "HYDROCHLOROTHIAZIDE 25MG (ESIDREX) 100 TAB", "generic": "Hydrochlorothiazide", "arafat_qty": "20", "arafat_location": "2B1", "mina_qty": "20", "mina_location": "2B10", "type": "Tablets"}, {"sn": "67", "trade": "ORAL REHYDRATION SALT  28.5GM     10SCH", "generic": "Oral Rehydration Salt", "arafat_qty": "20", "arafat_location": "2B5", "mina_qty": "20", "mina_location": "2B6", "type": "Preperations"}, {"sn": "68", "trade": "ANTIRHEUMATIC OINT (V)       (Olfen Gel)", "generic": "Diclofenac Sodium", "arafat_qty": "20", "arafat_location": "2B2", "mina_qty": "50", "mina_location": "3B2", "type": "Preperations"}, {"sn": "69", "trade": "EXFORGE 5/160MG (NOVARTIS)        28 TAB", "generic": "Amlodipine + Valsartan", "arafat_qty": "14", "arafat_location": "2B8", "mina_qty": "14", "mina_location": "2B7", "type": "Tablets"}, {"sn": "70", "trade": "MATADOR 500MG (DAR ALDAWA)         7 TAB", "generic": "Levofloxacin", "arafat_qty": "14", "arafat_location": "2B8", "mina_qty": "14", "mina_location": "2B9", "type": "Tablets"}, {"sn": "71", "trade": "MICARDIS PLUS 40/12.5MG(BOEHRINGER)28TAB", "generic": "Telmisartan + Hydrochlorothiazide", "arafat_qty": "14", "arafat_location": "2B2", "mina_qty": "14", "mina_location": "2B3", "type": "Tablets"}, {"sn": "72", "trade": "CHLORHEXIDINE GLUCONATE M/W 12BT", "generic": "CHLORHEXIDINE GLUCONATE", "arafat_qty": "12", "arafat_location": "", "mina_qty": "24", "mina_location": "5B", "type": "Preperations"}, {"sn": "73", "trade": "ATOXIA 90MG (UNITED)              10 TAB", "generic": "Etoricoxib", "arafat_qty": "10", "arafat_location": "2B9", "mina_qty": "10", "mina_location": "2B1", "type": "Tablets"}, {"sn": "74", "trade": "ANTIRHEUMATIC SUP. 100MG(VOLTAREN) 5 SUP", "generic": "Diclofenac Sodium", "arafat_qty": "10", "arafat_location": "2B7", "mina_qty": "30", "mina_location": "2B5", "type": "Preperations"}, {"sn": "75", "trade": "ETILEFRINE HCL 5MG                50 TAB", "generic": "Etilefrine", "arafat_qty": "10", "arafat_location": "2B8", "mina_qty": "20", "mina_location": "2B3", "type": "Tablets"}, {"sn": "76", "trade": "INDERAL 10MG (ATNAHS)              50TAB", "generic": "Propranolol", "arafat_qty": "10", "arafat_location": "2B3", "mina_qty": "10", "mina_location": "2B9", "type": "Tablets"}, {"sn": "77", "trade": "OSELTA 75MG (JAMJOOM)             10 CAP", "generic": "Oseltamivir", "arafat_qty": "10", "arafat_location": "2B5", "mina_qty": "10", "mina_location": "2B8", "type": "Tablets"}, {"sn": "78", "trade": "RHINOCORT 64MCG N/S (Rhinocort)", "generic": "Budesonide", "arafat_qty": "10", "arafat_location": "2B4", "mina_qty": "20", "mina_location": "3B4", "type": "Preperations"}, {"sn": "79", "trade": "XYLOLIN NASAL SPRAY   1  BOT", "generic": "Xylometazoline", "arafat_qty": "10", "arafat_location": "2B2", "mina_qty": "20", "mina_location": "2B2", "type": "Preperations"}, {"sn": "80", "trade": "FLUTIFORM 250/10 (FLUTICASONE+FORMETROL)", "generic": "Fluticasone/Formoterol Combination", "arafat_qty": "10", "arafat_location": "2B1", "mina_qty": "10", "mina_location": "3B6", "type": "Preperations"}, {"sn": "81", "trade": "SYMBICORT TURBUHAL.160/4.5MCG 120D 1 BOT", "generic": "Budesonide, Formoterol", "arafat_qty": "10", "arafat_location": "2B1", "mina_qty": "10", "mina_location": "2B2", "type": "Preperations"}, {"sn": "82", "trade": "HYDROCORTISONE. 1% CREAM  30 TUB", "generic": "Hydrocortisone", "arafat_qty": "10", "arafat_location": "2B4", "mina_qty": "20", "mina_location": "3B3", "type": "Preperations"}, {"sn": "83", "trade": "HYPOMELLOSE 0.3% EYE DROPS (Natural Tears)", "generic": "Hypromellose", "arafat_qty": "10", "arafat_location": "2B3 & Window", "mina_qty": "10", "mina_location": "Window", "type": "Preperations"}, {"sn": "84", "trade": "ANTAZOLINE+NAPH: 0.5MG E.D 10ML", "generic": "Antazoline + Naphazoline", "arafat_qty": "10", "arafat_location": "2B10 & Window", "mina_qty": "10", "mina_location": "Window", "type": "Preperations"}, {"sn": "85", "trade": "TETANUS TOXOID VACCINE 0.5ML      10 AMP COLD", "generic": "-", "arafat_qty": "10", "arafat_location": "", "mina_qty": "10", "mina_location": "", "type": "Vaccine - Antidotes"}, {"sn": "86", "trade": "COUGH SUPP.WITH COD.SYP           40 BOT", "generic": "Cough Syrup with Codeine", "arafat_qty": "10", "arafat_location": "3B3", "mina_qty": "40", "mina_location": "5B", "type": "Preperations"}, {"sn": "87", "trade": "MUXAVA 400MG (TQ PHARMA)           7 TAB", "generic": "Moxifloxacin", "arafat_qty": "7", "arafat_location": "2B8", "mina_qty": "7", "mina_location": "2B9", "type": "Tablets"}, {"sn": "88", "trade": "PROGYLUTON 21 TAB (BAYER)          6 PKT", "generic": "Estradiol + Norgestrel", "arafat_qty": "6", "arafat_location": "2B10", "mina_qty": "12", "mina_location": "2B6", "type": "Tablets"}, {"sn": "89", "trade": "IMIGRAN 50MG (GSK)                 6 TAB", "generic": "Sumatriptan", "arafat_qty": "6", "arafat_location": "2B6", "mina_qty": "12", "mina_location": "2B5", "type": "Tablets"}, {"sn": "90", "trade": "SERETIDE 250/50MCG DISKUS   60D", "generic": "Fluticasone, Salmeterol", "arafat_qty": "5", "arafat_location": "2B4", "mina_qty": "10", "mina_location": "3B1", "type": "Preperations"}, {"sn": "91", "trade": "SERETIDE DISKUS 500 / 50 MCG 60 DOSE", "generic": "Fluticasone/Salmeterol Combination", "arafat_qty": "5", "arafat_location": "2B3", "mina_qty": "10", "mina_location": "3B1", "type": "Preperations"}, {"sn": "92", "trade": "BETA-SITOSTEROL OINT.(AVOMEB)30GM 12 TUB", "generic": "Beta-Sitosterol", "arafat_qty": "5", "arafat_location": "2B2", "mina_qty": "10", "mina_location": "2B8", "type": "Preperations"}, {"sn": "93", "trade": "HYDROCORTISONE+ANAESTHETICS OINT  10 TUB  (Sediproct)", "generic": "Hydrocortisone, Lidocaine, Zinc Oxide", "arafat_qty": "5", "arafat_location": "2B2 & Window", "mina_qty": "5", "mina_location": "Window", "type": "Preperations"}, {"sn": "94", "trade": "FUCIDIC ACID 2% OINTI5GM(FUCIDIN) 200TUB", "generic": "Fusidic Acid", "arafat_qty": "5", "arafat_location": "2B4", "mina_qty": "10", "mina_location": "3B6", "type": "Preperations"}, {"sn": "95", "trade": "VIGAMOX 0.5% EYE DROPS       10 BOT", "generic": "Moxifloxacin", "arafat_qty": "5", "arafat_location": "2B1", "mina_qty": "10", "mina_location": "2B8", "type": "Preperations"}, {"sn": "96", "trade": "GENTAMYCIN 0.3% EYE/EAR DROPS", "generic": "Gentamicin", "arafat_qty": "5", "arafat_location": "2B10", "mina_qty": "5", "mina_location": "2B8", "type": "Preperations"}, {"sn": "97", "trade": "REPARIL GEL 40GM", "generic": "Aescin +Diethylamine Saliciate", "arafat_qty": "5", "arafat_location": "2B3", "mina_qty": "5", "mina_location": "2B8", "type": "Preperations"}, {"sn": "98", "trade": "ANTIHAEMORRHOID OINT. 20GM. (Pilax)", "generic": "Herbal Hemorrhoid Treatment", "arafat_qty": "5", "arafat_location": "2B3 & Window", "mina_qty": "5", "mina_location": "Window", "type": "Preperations"}, {"sn": "99", "trade": "MAXITROL EYE DROPS                10 BOT", "generic": "Neomycin, Polymyxin B, Dexamethasone", "arafat_qty": "5", "arafat_location": "2B10 & Window", "mina_qty": "5", "mina_location": "Window", "type": "Preperations"}, {"sn": "100", "trade": "MAXITROL. EYE OINT                10 TUB", "generic": "Neomycin, Polymyxin B, Dexamethasone", "arafat_qty": "5", "arafat_location": "2B10 & Window", "mina_qty": "5", "mina_location": "Window", "type": "Preperations"}, {"sn": "101", "trade": "EAR DROPS 10 ML  (NEOPRED-P)", "generic": "Neomycin, Polymyxin B, Hydrocortisone", "arafat_qty": "3", "arafat_location": "2B3", "mina_qty": "3", "mina_location": "2B8", "type": "Preperations"}, {"sn": "102", "trade": "ACYCLOVIR SKIN CREAM  10GM    16TUB", "generic": "Acyclovir", "arafat_qty": "3", "arafat_location": "2B4", "mina_qty": "3", "mina_location": "2B8", "type": "Preperations"}, {"sn": "103", "trade": "MOMETASONE FUROATE N.S (AVOCOM) 12 BOT (Nasonex)", "generic": "Mometasone furoate", "arafat_qty": "2", "arafat_location": "2B2", "mina_qty": "5", "mina_location": "2B2", "type": "Preperations"}, {"sn": "104", "trade": "ATROVENT INHALER 20MCG/PUFF", "generic": "Ipratropium Bromide", "arafat_qty": "2", "arafat_location": "2B3", "mina_qty": "2", "mina_location": "2B3", "type": "Preperations"}, {"sn": "1", "trade": "BECLOMETHASONE 250MCG INHALER (Clenil)", "generic": "BECLOMETHASON", "arafat_qty": "2", "arafat_location": "3B2", "mina_qty": "2", "mina_location": "2B5", "type": "Preperations"}, {"sn": "2", "trade": "SILVER SULPHADIAZINE CREAM", "generic": "Silver Sulfadiazine", "arafat_qty": "2", "arafat_location": "2B5", "mina_qty": "5", "mina_location": "3B3", "type": "Preperations"}, {"sn": "3", "trade": "CLOTRIMAZOLE 1% CREAM (OPIZOLE) 15 TUBE", "generic": "Clotrimazole", "arafat_qty": "2", "arafat_location": "2B4", "mina_qty": "5", "mina_location": "3B3", "type": "Preperations"}, {"sn": "108", "trade": "CORT. MILD POTENT+A/BIOTIC CREAM ( FUCIDIN H)", "generic": "Fusidic Acid + Hydrocortisone", "arafat_qty": "2", "arafat_location": "2B4", "mina_qty": "5", "mina_location": "3B3", "type": "Preperations"}, {"sn": "109", "trade": "DEXPANTHENOL 5% CREAM   12 TUB", "generic": "Dexpanthenol", "arafat_qty": "2", "arafat_location": "2B4", "mina_qty": "5", "mina_location": "3B3", "type": "Preperations"}, {"sn": "110", "trade": "DEXPANTHENOL 5% OINT              10 TUB", "generic": "Dexpanthenol", "arafat_qty": "2", "arafat_location": "2B4", "mina_qty": "5", "mina_location": "3B3", "type": "Preperations"}, {"sn": "111", "trade": "NYSTATIN CREAM    15GM", "generic": "Nystatin", "arafat_qty": "2", "arafat_location": "2B2", "mina_qty": "5", "mina_location": "2B8", "type": "Preperations"}, {"sn": "112", "trade": "LUBRICANT EYE OINT (DURATEARS) 10TUB", "generic": "Eye Lubricant Ointment", "arafat_qty": "2", "arafat_location": "2B10", "mina_qty": "5", "mina_location": "2B8", "type": "Preperations"}, {"sn": "113", "trade": "OFLOXACIN  0.3% E.D  5ML", "generic": "Ofloxacin", "arafat_qty": "2", "arafat_location": "2B2", "mina_qty": "5", "mina_location": "2B8", "type": "Preperations"}, {"sn": "114", "trade": "LACTULOSE SYRUP                   20 BOT", "generic": "Lactulose", "arafat_qty": "2", "arafat_location": "3B3", "mina_qty": "5", "mina_location": "3B5", "type": "Preperations"}, {"sn": "115", "trade": "ATROVENT SOLUTION 250MCG/2ML      54PKT", "generic": "Ipratropium Bromide Solution", "arafat_qty": "2", "arafat_location": "2B2", "mina_qty": "2", "mina_location": "2B10", "type": "Preperations"}, {"sn": "116", "trade": "EURAX LOTION", "generic": "Crotamiton", "arafat_qty": "1", "arafat_location": "2B9", "mina_qty": "1", "mina_location": "3B3", "type": "Preperations"}, {"sn": "117", "trade": "SALBUTAMOL RESP-SOLN   120 BOT", "generic": "Salbutamol", "arafat_qty": "1", "arafat_location": "", "mina_qty": "2", "mina_location": "2B8", "type": "Preperations"}, {"sn": "118", "trade": "SODIUM PHOSPHATE (FLEET ENEMA)   1 BOT", "generic": "Sodium Phosphate", "arafat_qty": "0", "arafat_location": "", "mina_qty": "2", "mina_location": "2B9", "type": "Preperations"}];
+const searchInput = document.getElementById("searchInput");
+const typeFilter = document.getElementById("typeFilter");
+const placeFilter = document.getElementById("placeFilter");
+const cardsGrid = document.getElementById("cardsGrid");
+const emptyState = document.getElementById("emptyState");
+const totalCount = document.getElementById("totalCount");
+const shownCount = document.getElementById("shownCount");
+
+function escapeHtml(value) {
+  return String(value ?? "")
+    .replaceAll("&", "&amp;")
+    .replaceAll("<", "&lt;")
+    .replaceAll(">", "&gt;")
+    .replaceAll('"', "&quot;")
+    .replaceAll("'", "&#039;");
+}
+
+function fillTypes() {
+  const types = [...new Set(records.map(r => r.type).filter(Boolean))].sort();
+  types.forEach(type => {
+    const option = document.createElement("option");
+    option.value = type;
+    option.textContent = type;
+    typeFilter.appendChild(option);
+  });
+}
+
+function isPositiveValue(v) {
+  const s = String(v ?? "").trim();
+  return s !== "" && s !== "0" && s !== "-";
+}
+
+function renderCards() {
+  const q = searchInput.value.trim().toLowerCase();
+  const selectedType = typeFilter.value;
+  const selectedPlace = placeFilter.value;
+
+  const filtered = records.filter(item => {
+    const haystack = `${item.sn} ${item.trade} ${item.generic} ${item.arafat_qty} ${item.arafat_location} ${item.mina_qty} ${item.mina_location} ${item.type}`.toLowerCase();
+    const matchesSearch = haystack.includes(q);
+    const matchesType = !selectedType || item.type === selectedType;
+    let matchesPlace = true;
+    if (selectedPlace === "arafat") matchesPlace = isPositiveValue(item.arafat_qty) || isPositiveValue(item.arafat_location);
+    if (selectedPlace === "mina") matchesPlace = isPositiveValue(item.mina_qty) || isPositiveValue(item.mina_location);
+    return matchesSearch && matchesType && matchesPlace;
+  });
+
+  cardsGrid.innerHTML = filtered.map(item => `
+    <article class="med-card">
+      <div class="med-title">${escapeHtml(item.trade)}</div>
+      <div class="med-generic">${escapeHtml(item.generic || "-")}</div>
+
+      <div class="locations">
+        <div class="loc-box arafat">
+          <div class="loc-title">🟣 عرفه</div>
+          <div class="loc-line"><span class="loc-label">Quantity</span><span class="loc-value">${escapeHtml(item.arafat_qty || "-")}</span></div>
+          <div class="loc-line"><span class="loc-label">Location</span><span class="loc-value">${escapeHtml(item.arafat_location || "-")}</span></div>
+        </div>
+        <div class="loc-box mina">
+          <div class="loc-title">🟢 منى</div>
+          <div class="loc-line"><span class="loc-label">Quantity</span><span class="loc-value">${escapeHtml(item.mina_qty || "-")}</span></div>
+          <div class="loc-line"><span class="loc-label">Location</span><span class="loc-value">${escapeHtml(item.mina_location || "-")}</span></div>
+        </div>
+      </div>
+
+      <div class="card-meta">
+        <span class="pill type">${escapeHtml(item.type || "-")}</span>
+      </div>
+    </article>
+  `).join("");
+
+  totalCount.textContent = records.length;
+  document.getElementById("totalTop").textContent = records.length;
+  shownCount.textContent = filtered.length;
+  emptyState.style.display = filtered.length ? "none" : "block";
+}
+
+function clearFilters() {
+  searchInput.value = "";
+  typeFilter.value = "";
+  placeFilter.value = "";
+  renderCards();
+}
+
+searchInput.addEventListener("input", renderCards);
+typeFilter.addEventListener("change", renderCards);
+placeFilter.addEventListener("change", renderCards);
+
+fillTypes();
+renderCards();
+</script>
+</body>
+</html>
